@@ -1,0 +1,20 @@
+﻿@model HotelReservation.Models.Hotel
+
+
+<h2>edit</h2>
+
+<form method="post" action="~/Home/UpdateData">
+    Country:
+    <input type="text" name="country" value="@Model.country" />
+    Name:
+    <input type="text" name="name" value="@Model.name" />
+    City:
+    <input type="text" name="degree" value="@Model.city" />
+    Total Rooms:
+    <input type="text" name="degree" value="@Model.noOfRooms" />
+    Room Available:
+    <input type="text" name="degree" value="@Model.RoomsAvailable" />
+
+    <input type="submit" value="Save Changes" />
+</form>
+

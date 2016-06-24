@@ -1,0 +1,222 @@
+﻿@{
+    ViewBag.Title = "front";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  @Scripts.Render("~/bundles/jquery")
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Holiday - Front</title>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,700' rel='stylesheet' type='text/css'>
+  <link href="~/Content/css/font-awesome.min.css" rel="stylesheet">
+  <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+  <link href="~/Content/css/bootstrap-datetimepicker.min.css" rel="stylesheet">  
+  <link href="~/Content/css/flexslider.css" rel="stylesheet">
+  <link href="~/Content/css/templatemo-style.css" rel="stylesheet">
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#countrySelector").change(function () {
+                var hotelId = $("#countrySelector").val();
+                $("#hotelSelector option").remove();
+
+
+                $.getJSON("/home/getHotels?id=" + hotelId, function (data) {
+                    $("#hotelSelector").append('<option>-Select hotel-</option>');
+                    $.each(data, function (i, item) {
+                        $("#hotelSelector").append('<option value=' + item.Name + '>' + item.Name + '</option>');
+                        
+                    });
+
+                });
+
+            });
+
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#hotelSelector").change(function () {
+                var hotelId = $("#hotelSelector").val();
+                alert(" Name = " + hotelId);
+                $.getJSON("/home/HotelData?id=" + hotelId, function (data) {
+                    $.each(data, function (i, item)
+                    {
+                        $("#noofrooms").val(item.rooms);
+                        $("#Availablerooms").val(item.availablerooms);
+                        alert('rooms = ' + item.rooms + " Name = " + item.availablerooms);
+                    });
+
+                });
+
+            });
+
+        });
+    </script>
+    <script>
+        $("#noofrooms").prop("readonly", true);
+        $("#Availablerooms").prop("readonly", true);
+    </script>
+  </head>
+  <body class="tm-gray-bg" style="background-repeat: no-repeat;background-size:100% 100%;">
+	<div class="tm-header">
+  		<div class="container">
+  			<div class="row">
+  				<div class="col-lg-6 col-md-4 col-sm-3 tm-site-name-container">
+  					<a href="#" class="tm-site-name">Holiday</a>	
+  				</div>			
+  			</div>
+  		</div>	  	
+  	</div>
+      <section class="container tm-home-section-1" id="more">
+		<div class="row">
+			<div class="col-lg-4 col-md-4 col-sm-6">
+				<div class="tm-home-box-1">
+					<ul class="nav nav-tabs tm-white-bg" role="tablist" id="hotelCarTabs">
+					    <li role="presentation" class="active">
+					    	<a href="#hotel" aria-controls="hotel" role="tab" data-toggle="tab">Hotel</a>
+					    </li>
+					</ul>
+                    <div class="tab-content">
+					    <div role="tabpanel" class="tab-pane fade in active tm-white-bg" id="hotel">
+					    	<div class="tm-search-box effect2">
+								<div class="tm-form-inner">
+                                    @using (Html.BeginForm("checkbooking2", "Home",FormMethod.Post))
+                                    {  	
+                                        
+                                        <div class="form-group">
+                                            <div class="form-control">
+                                                Enter your secret code:                 
+                                                <Input type="text" name="secretcode" id="secretcode" required>  
+                                            </div>
+                                        </div>
+                                        <div class="form-group tm-yellow-gradient-bg text-center" style="margin-top:30px;">
+						            	    <button type="submit" name="submit" class="tm-yellow-btn">Show Data</button>
+						                </div>
+                                        					
+									    @Html.ValidationSummary(true);
+                                        <fieldset>
+                                           @if (ViewBag.Message != null)
+                                           {
+                                               if (ViewBag.Message == "13")
+                                               {
+                                                   <div style="border: solid 1px green;background-color:green;margin-top:40px;">
+                                                        @ViewBag.Message
+                                                    </div>
+                                               }
+                                               else
+                                               {
+                                                    <div style="border: solid 1px green;background-color:red;margin-top:40px;">
+                                                        @ViewBag.Message
+                                                    </div>
+                                               }
+                                           }
+                                        </fieldset>
+                                    }
+                                </div>
+							</div>
+					    </div>
+                     </div>
+                 </div>
+              </div>
+            </div>
+	</section>		
+	
+	<script type="text/javascript" src="~/Content/js/jquery-1.11.2.min.js"></script>      		<!-- jQuery -->
+  	<script type="text/javascript" src="~/Content/js/moment.js"></script>							<!-- moment.js -->
+	<script type="text/javascript" src="~/Content/js/bootstrap.min.js"></script>					<!-- bootstrap js -->
+	<script type="text/javascript" src="~/Content/js/bootstrap-datetimepicker.min.js"></script>	<!-- bootstrap date time picker js, http://eonasdan.github.io/bootstrap-datetimepicker/ -->
+	<script type="text/javascript" src="~/Content/js/jquery.flexslider-min.js"></script>
+	<script src="~/Content/js/froogaloop.js"></script>
+	<script src="~/Content/js/jquery.fitvid.js"></script>
+
+   	<script type="text/javascript" src="~/Content/js/templatemo-script.js"></script>      		<!-- Templatemo Script -->
+	<script>
+		$(function() {
+
+		    $('#hotelCarTabs a').click(function (e)
+		    {
+			    e.preventDefault()
+			    $(this).tab('show')
+			})
+
+        	$('.date').datetimepicker({
+            	format: 'MM/DD/YYYY'
+            });
+            $('.date-time').datetimepicker();
+
+			 https://css-tricks.com/snippets/jquery/smooth-scrolling/
+		  	$('a[href*=#]:not([href=#])').click(function() {
+			    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+			      var target = $(this.hash);
+			      target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+			      if (target.length) {
+			        $('html,body').animate({
+			          scrollTop: target.offset().top
+			        }, 1000);
+			        return false;
+			      }
+			    }
+		  	});
+		});
+		
+		// Load Flexslider when everything is loaded.
+		$(window).load(function() {	  		
+			// Vimeo API nonsense
+
+
+			  var player = document.getElementById('player_1');
+			  $f(player).addEvent('ready', ready);
+			 
+			  function addEvent(element, eventName, callback) {
+			    if (element.addEventListener) {
+			      element.addEventListener(eventName, callback, false)
+			    } else {
+			      element.attachEvent(eventName, callback, false);
+			    }
+			  }
+			 
+			  function ready(player_id) {
+			    var froogaloop = $f(player_id);
+			    froogaloop.addEvent('play', function(data) {
+			      $('.flexslider').flexslider("pause");
+			    });
+			    froogaloop.addEvent('pause', function(data) {
+			      $('.flexslider').flexslider("play");
+			    });
+			  }
+
+			 
+			 
+			  // Call fitVid before FlexSlider initializes, so the proper initial height can be retrieved.
+
+			  $(".flexslider")
+			    .fitVids()
+			    .flexslider({
+			      animation: "slide",
+			      useCSS: false,
+			      animationLoop: false,
+			      smoothHeight: true,
+			      controlNav: false,
+			      before: function(slider){
+			        $f(player).api('pause');
+			      }
+			  });
+
+
+
+			  
+
+//	For images only
+		    $('.flexslider').flexslider({
+			    controlNav: false
+		    });
+
+
+	  	});
+	</script>
+ </body>
+ </html>

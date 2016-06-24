@@ -1,0 +1,79 @@
+﻿@model List<HotelReservation.Models.Hotel>
+@{
+    ViewBag.Title = "admin";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Holiday - Admin</title>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,700' rel='stylesheet' type='text/css'>
+	<link href="~/Content/css/font-awesome.min.css" rel="stylesheet">
+	<link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+	<link href="~/Content/css/bootstrap-datetimepicker.min.css" rel="stylesheet">  
+	<link href="~/Content/css/flexslider.css" rel="stylesheet">
+	<link href="~/Content/css/templatemo-style.css" rel="stylesheet">
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    
+
+</head>
+    <body class="tm-gray-bg">
+	<div class="tm-header">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-4 col-sm-3 tm-site-name-container">
+					<a href="#" class="tm-site-name">Holiday</a>	
+				</div>
+				<div class="col-lg-6 col-md-8 col-sm-9">
+					<nav class="tm-nav">
+						<ul>
+							<li>@Html.ActionLink("Log Out","logout","Home")</li>
+                        </ul>
+					</nav>		
+				</div>				
+			</div>
+		</div>	  	
+	</div>
+	<section class="container tm-home-section-1" id="more">
+		<div class="row">
+			    <div class="tm-search-box effect2" style="margin-left:40px;margin-top:100px;width:100%;background-color:lightsalmon;border:2px solid black;">
+				 <table style="width:100%">
+                        <tr>
+                            <th>Name</th>
+                            <th>City</th>
+                            <th>Country</th>
+                            <th>Total Rooms</th>
+                            <th>Available Rooms</th>
+                            <th>Edit</th>
+                        </tr>
+
+                        @{
+                            foreach (var u in Model)
+                            {
+                                <tr>
+                                    <td>@u.name</td>
+                                    <td>@u.city</td>
+                                    <td>@u.country</td>
+                                    <td>@u.noOfRooms</td>
+                                    <td>@u.RoomsAvailable</td>
+                                    <td><a href="~/Home/addrooms">Edit</a></td>
+                                    <td></td>
+                                </tr>
+                            }
+                        }
+                        </table>
+                    </div>
+				</div>		    
+			</section>
+            <div class="form-group tm-yellow-gradient-bg text-center" style="margin-top:50px;margin-left:50px;width:150px;height:50px;">
+				<a type="submit"  class="tm-yellow-btn" href="@Url.Action("editing", "Home")">Add Table</a>
+			</div>	
+	<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>      
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>			
+	<script type="text/javascript" src="js/jquery.flexslider-min.js"></script>
+	<script type="text/javascript" src="js/templatemo-script.js"></script>
+    </body>
+</html>
